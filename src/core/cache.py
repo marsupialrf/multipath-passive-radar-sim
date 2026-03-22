@@ -1,7 +1,7 @@
 """
-Registry : simulation_v4/cache/field_registry.json
+Registry : /cache/field_registry.json
            Contains one entry per cached field with hash, filename, params.
-Fields   : simulation_v4/cache/precomputed_static_fields/<name>.npz
+Fields   : /cache/precomputed_static_fields/<name>.npz
 
 Workflow
 --------
@@ -49,8 +49,8 @@ def _scene_params(scene, seed: int, cell_size: float) -> dict:
         "cell_size": round(float(cell_size), 6),
         "n_rays": int(scene.n_rays),
         "n_max": int(scene.n_max),
-        "roughness": round(float(getattr(scene, 'roughness', 0.0)), 8),
-        "use_physics": bool(getattr(scene, 'use_physics', True)),
+        "roughness": round(float(scene.roughness), 8),
+        "use_physics": bool(scene.use_physics),
         "temperature_c": round(float(scene.temperature_c), 4),
         "bandwidth_hz": round(float(scene.bandwidth_hz), 2),
         "box_min": [round(float(x), 4) for x in scene.box.box_min],

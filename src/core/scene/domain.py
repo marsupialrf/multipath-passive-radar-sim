@@ -28,12 +28,12 @@ class Obstacle:
 class Transmitter:
     position  : np.ndarray
     frequency : float
-    tx_power_w: float = 50.0 
-    tx_id     : int = 0
+    tx_power_w: float = 50.0
+    tx_id     : int   = 0
 
     def __post_init__(self):
         self.position = np.asarray(self.position, dtype=float)
-        
+
     @property
     def tx_power_dbm(self) -> float:
         return 10.0 * np.log10(self.tx_power_w * 1000.0)
@@ -41,7 +41,7 @@ class Transmitter:
 @dataclass
 class Receiver:
     position: np.ndarray
-    radius  : float = 2.0  # Physical reception sphere
+    radius  : float = 2.0
 
     def __post_init__(self):
         self.position = np.asarray(self.position, dtype=float)
@@ -65,14 +65,21 @@ class Scene:
     n_rays       : int            = 60_000
     uav          : Optional[UAV]  = None
     obstacles    : List[Obstacle] = field(default_factory=list)
-    
-    # Physics parameters
-    temperature_c: float = 30.0   
-    bandwidth_hz : float = 20e6   
-    use_physics  : bool  = True   # Toggles Thermal Floor vs Bounce limit
-    
+
+    # Thermal / link budget
+    temperature_c : float = 30.0
+    bandwidth_hz  : float = 20e6
+    use_physics   : bool  = True
+
+    # Surface scattering (0 = perfect mirror, 1 = fully diffuse)
+    roughness     : float = 0.0
+
+    # UAV scattering and sampling
+    uav_roughness : float = 0.3
+    n_samples_uav : int   = 8
+
     @property
     def noise_floor_dbm(self) -> float:
-        temp_k = self.temperature_c + 273.15
+        temp_k  = self.temperature_c + 273.15
         noise_w = BOLTZMANN * temp_k * self.bandwidth_hz
         return 10.0 * np.log10(noise_w * 1000.0)

@@ -38,9 +38,3 @@ def compute_scattered_doppler(velocity: np.ndarray, v_in: np.ndarray, v_out: np.
     c = 3e8
     # Notice the (v_out - v_in) correct formulation
     return (freq / c) * float(np.dot(velocity, v_out - v_in))
-
-def sample_scattering() -> float:
-    raise NotImplementedError("Probabilistic scattering (cosine lobe) not yet implemented!")
-
-def compute_bistatic_rcs(theta_in: float, phi_in: float, theta_out: float, phi_out: float) -> float:
-    raise NotImplementedError("4D Bistatic RCS calculation is not yet implemented.")

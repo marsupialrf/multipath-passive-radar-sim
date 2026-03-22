@@ -40,9 +40,9 @@ def precompute(
         np.random.seed(seed)
     seed_val = int(seed) if seed is not None else 0
 
-    roughness   = float(getattr(scene, 'roughness', 0.0))
+    roughness   = float(scene.roughness)
     n_max       = int(scene.n_max)
-    use_physics = bool(getattr(scene, 'use_physics', True))
+    use_physics = bool(scene.use_physics)
     noise_floor = float(scene.noise_floor_dbm) if use_physics else float('-inf')
     uav_rad     = float(scene.uav.radius) if scene.uav is not None else 1.0
     cs          = cell_size if cell_size is not None else max(1.0, uav_rad)

@@ -1,16 +1,3 @@
-"""
-simulation_v4/src/tracer.py
-=================
-Public API. Import everything from here; internal structure is opaque.
-
-  from src.tracer import (
-      make_street_scene,
-      precompute, apply_uav, get_or_compute,
-      get_covered_uav_spawn,
-      to_dataframe, plot_from_static, plot_trajectory, make_frame_rays,
-      StaticField, Scene, Ray, UAV,
-  )
-"""
 # ── Scene ─────────────────────────────────────────────────────────────────────
 from .core.scene.domain  import Scene, Box, Obstacle, Transmitter, Receiver, UAV
 from .core.scene.ray     import Ray
@@ -84,13 +71,3 @@ def get_covered_uav_spawn(
         if _clear(pos):
             return pos
     raise RuntimeError("Could not find valid UAV spawn after max_attempts")
-
-
-def trace(scene, seed: Optional[int] = None) -> list:
-    """Backward-compatible wrapper: returns flat List[Ray]."""
-    import copy
-    static = precompute(scene, seed=seed)
-    if scene.uav is None:
-        return static.anchors
-    vis, occ, bounces = apply_uav(static, scene.uav, scene)
-    return vis + occ + bounces
