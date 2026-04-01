@@ -1,0 +1,10 @@
+numpy==2.4.4
+pandas==3.0.2
+matplotlib==3.10.8
+plotly==6.6.0
+numba==0.65.0
+numba-cuda==0.29.0
+nvidia-cuda-runtime-cu12
+nvidia-cuda-nvrtc-cu12
+nvidia-nvvm
+nvidia-nvjitlink
